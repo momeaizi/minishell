@@ -1,31 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/05/28 18:52:05 by momeaizi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-
-
-
 
 int main(int ac, char **av, char **env)
 {
-	t_command	*head = NULL;
+	int 		i;
+	t_command	*head;
 	t_command	*tmp;
-	char **tokens = NULL;
-	int i = -1;
-	char	str[] = "<main.c cat>>ss '|' wc -l | echo \"$USER\">outfile";
+	char		**tokens;
 
-	//		split by pipe
-	split(tokens, str, '|');
-	
-	//
-
-	while (tokens[++i])
-	    create_node(&head, tokens[i]);
-	tmp = head;
-	while (tmp)
-	{
-		tmp->line = add_space(tmp->line);
-		printf("%s\n", tmp->line);
-		tmp = tmp->next;
-	}
-	system("leaks a.out");
+	head = NULL;
+	tokens = NULL;
+	i = -1;
+	char	str[] = "<main.c cat <<ss<infile | wc -l>outfile";
+	tokenizer(str);
 	return (0);
 }

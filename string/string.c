@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   string.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/28 18:36:06 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/05/28 18:41:01 by momeaizi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_strlen(char *str)
@@ -9,7 +21,6 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
-
 
 void	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
