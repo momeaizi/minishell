@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/30 22:34:59 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:50:05 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <errno.h>
 
 typedef struct s_token
 {
@@ -33,7 +34,6 @@ typedef struct s_token
 
 typedef struct s_command
 {
-	char				*command;
 	char				*command_path;
 	char				**command_args;
 	int					input;
@@ -48,6 +48,7 @@ typedef struct s_env_var
 	char	*val;
 	int		var_len;
 	int		val_len;
+	char	end;
 }	t_env_var;
 
 //					string
@@ -77,5 +78,6 @@ void	parser(t_command *commands);
 int		ft_isalpha(char c);
 int		ft_isnum(char c);
 int		ft_isalnum(char c);
+char	*ft_itoa(int n);
 
 #endif
