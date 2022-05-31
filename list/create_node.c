@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:35:38 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/28 18:35:39 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/05/30 11:09:02 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ t_command	*create_node(t_command **head, char *line)
 		free(node);
 		return (NULL);
 	}
+	node->tokens->command = NULL;
 	node->tokens->line = line;
+	node->tokens->arguments = (char **)calloc(1, sizeof(char *));
+	node->tokens->infiles = (char **)calloc(1, sizeof(char *));
+	node->tokens->outfiles = (char **)calloc(1, sizeof(char *));
+	node->tokens->heredocs = (char **)calloc(1, sizeof(char *));
 	node->next = NULL;
 	ft_lstadd_back(head, node);
 	return (node);

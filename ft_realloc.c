@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/30 15:22:55 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/05/29 19:50:50 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/05/30 15:30:15 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int main(int ac, char **av, char **env)
+char	**ft_realloc(char **ptr, char *new)
 {
-	int 		i;
-	t_command	*head;
-	t_command	*tmp;
-	char		**tokens;
+	int		i;
+	int		size;
+	char	**new_ptr;
 
-	head = NULL;
-	tokens = NULL;
-	// char *str = readline("bash$ ");
-	char	str[] = "<main.c cat <<ss<\"te\"st<test2<test2>outfile1 taha | wc -l>outfile1337";
-	head = tokenizer(str);
-	parser(head);
-	// system("leaks a.out");
-	return (0);
+	i = -1;
+	size = 0;
+	while (ptr[size])
+		size++;
+	new_ptr = (char **)malloc((size + 2) * sizeof(char *));
+	if (!new_ptr)
+		return (ptr);
+	while (ptr[++i])
+	{
+		new_ptr[i] = ptr[i];
+	}
+	free(ptr);
+	new_ptr[i++] = new;
+	new_ptr[i] = NULL;
+	return (new_ptr);
 }

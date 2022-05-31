@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/28 18:56:21 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:34:59 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@
 
 typedef struct s_token
 {
+	char	open_flag;
+	char	*command;
 	char	*line;
 	char	**tokens;
+	char	**arguments;
+	char	**infiles;
+	char	**outfiles;
+	char	**heredocs;
 }	t_token;
 
 typedef struct s_command
@@ -35,6 +41,14 @@ typedef struct s_command
 	t_token				*tokens;
 	struct s_command	*next;
 }	t_command;
+
+typedef struct s_env_var
+{
+	char	*var;
+	char	*val;
+	int		var_len;
+	int		val_len;
+}	t_env_var;
 
 //					string
 int			ft_strlen(char *str);
@@ -55,5 +69,13 @@ void		ft_lstclear(t_command **head);
 t_command	*create_node(t_command **head, char *line);
 //					tokenizer
 t_command	*tokenizer(char *str);
+
+
+char	**ft_realloc(char **ptr, char *new);
+void	parser(t_command *commands);
+
+int		ft_isalpha(char c);
+int		ft_isnum(char c);
+int		ft_isalnum(char c);
 
 #endif
