@@ -6,75 +6,37 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:03:52 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/31 19:28:12 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:30:35 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "expander.h"
 
-
-void	clear_env(t_env_var *env_var)
-{
-	int	i;
-
-	i = -1;
-	while (env_var[++i].end)
-	{
-		if (!ft_strcmp("?", env_var[i].var))
-			free(env_var[i].val);
-		free(env_var[i].var);
-	}
-	free(env_var);
-}
-
-int	ignore_quotes(char *str, char expand_all, char double_qoute)
-{
-	int	i;
-
-	i = 0;
-	if (expand_all)
-		return (0);
-	if (str[i] == '\'' && !double_qoute)
-	{
-		i++;
-		while (str[i] && str[i] != '\'')
-			i++;
-		if (str[i] == '\'')
-			return (i);
-		return (1);
-	}
-	return (0);
-}
-
-
-
-int	dollar_counter(char *str, char	expand_all)
+void	dollar_counter(char *str, t_expand_var *exp_var)
 {
 	int		i;
-	int		count;
-	char	double_qoute;
 
 	i = -1;
-	count = 0;
-	double_qoute = 0;
+	exp_var->count = 0;
+	exp_var->double_qoute = 0;
 	while (str[++i])
 	{
 		if (str[i] == '\"')
-			double_qoute = !double_qoute;
-		i += ignore_quotes(str + i, expand_all, double_qoute);
-		if (str[i] == '$' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
-			count++;
+			exp_var->double_qoute = !exp_var->double_qoute;
+		i += ignore_quotes(str + i, exp_var);
+		if (str[i] == '$' && (ft_isalnum(str[i + 1]) \
+		|| str[i + 1] == '_' || str[i + 1] == '?'))
+			exp_var->count++;
 		else if (str[i] == '$' && str[i] == str[i + 1])
 			i++;
 	}
-	return (count);
 }
 
 void	get_variable(t_env_var	*env_var, char **env)
 {
 	char	*var;
 
-	env_var->end =  1;
+	env_var->end = 1;
 	if (!env_var->var_len)
 		env_var->var_len = 1;
 	var = env_var->var;
@@ -85,98 +47,94 @@ void	get_variable(t_env_var	*env_var, char **env)
 	if (!ft_strcmp("?", env_var->var))
 		env_var->val = ft_itoa(errno);
 	else
-		env_var->val = getenv(env_var->var);
+		env_var->val = ft_getenv(env_var->var, env);
 	env_var->val_len = ft_strlen(env_var->val);
 }
 
-
-
-char	*replace_var_by_val(char *str, t_env_var *env_var, char expand_all)
+void	replace_var_by_val(char *str, t_expand_var *exp_var)
 {
 	int		i;
 	int		j;
 	int		index;
-	int		length;
-	char	double_qoute;
-	char	expnd;
-	char	*new_str;
 
-	i = -1;
-	length = ft_strlen(str) + 1;
-	double_qoute = 0;
-	expnd = 1;
-	while (env_var[++i].end)
-		length = length + (env_var[i].val_len - env_var[i].var_len - 1);
-	new_str = (char *)malloc(length * sizeof(char));
-	if (!new_str)
-		return (NULL);
-	i = -1;
-	j = 0;
-	index = 0;
+	set_len(exp_var, &index, &i, &j);
+	if (!i)
+		return ;
 	while (str[++i])
 	{
-		if (str[i] == '\"')
-			double_qoute = !double_qoute;
-		if (str[i] == '\'' && !double_qoute && !expand_all)
-			expnd = 0;
-		if (expnd && str[i] == '$' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
+		is_quote(str[i], exp_var);
+		if (exp_var->expnd && str[i] == '$' && \
+		(ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
 		{
-			ft_strlcpy(new_str + j, env_var[index].val, env_var[index].val_len + 1);
-			i += env_var[index].var_len;
-			j += env_var[index].val_len;
+			ft_strlcpy(exp_var->new_str + j, exp_var->env_var[index].val, \
+			exp_var->env_var[index].val_len + 1);
+			i += exp_var->env_var[index].var_len;
+			j += exp_var->env_var[index].val_len;
 			index++;
 		}
 		else
-			new_str[j++] = str[i];
+			exp_var->new_str[j++] = exp_var->str[i];
 	}
-	new_str[j] = 0;
-	// free(str);
-	return (new_str);
+	exp_var->new_str[j] = 0;
 }
 
-
-char	*expand(char *str, char **env, char expand_all)
+void	expander(char *str, char **env, t_expand_var *exp_var)
 {
-	int			i;
-	int			index;
-	int			count;
-	t_env_var	*env_var;
-	char		double_qoute;
+	int				i;
+	int				index;
+
 	i = -1;
 	index = 0;
-	count = dollar_counter(str, expand_all);
-	if (!count)
-		return (str);
-	env_var = (t_env_var *)malloc((count + 1) * sizeof(t_env_var ));
-	double_qoute = 0;
 	while (str[++i])
 	{
 		if (str[i] == '\"')
-			double_qoute = !double_qoute;
-		i += ignore_quotes(str + i, expand_all, double_qoute);
-		if (str[i] == '$' && (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i + 1] == '?'))
+			exp_var->double_qoute = !exp_var->double_qoute;
+		i += ignore_quotes(str + i, exp_var);
+		if (str[i] == '$' && (ft_isalnum(str[i + 1]) \
+		|| str[i + 1] == '_' || str[i + 1] == '?'))
 		{
-			env_var[index].var_len = 0;
-			env_var[index].var = &str[i] + 1;
-			while (ft_isalpha(str[++i])|| str[i] == '_')
-				env_var[index].var_len++;
-			get_variable(&env_var[index], env);
+			exp_var->env_var[index].var_len = 0;
+			exp_var->env_var[index].var = &str[i] + 1;
+			while (ft_isalpha(str[++i]) || str[i] == '_')
+				exp_var->env_var[index].var_len++;
+			get_variable(&exp_var->env_var[index], env);
 			index++;
 		}
 		else if (str[i] == '$' && str[i] == str[i + 1])
 			i++;
 	}
-	env_var[index].end = 0;
-	char *new = replace_var_by_val(str, env_var, expand_all);
-	clear_env(env_var);
-	return (new);
+	exp_var->env_var[index].end = 0;
+}
+
+char	*expand_var(char *str, char **env, char expand_all)
+{
+	t_expand_var	*exp_var;
+	char			*new_str;
+
+	exp_var = init(exp_var, str, expand_all);
+	if (!exp_var || !exp_var->count)
+	{
+		if (exp_var)
+			free(exp_var);
+		return (str);
+	}
+	expander(str, env, exp_var);
+	replace_var_by_val(str, exp_var);
+	new_str = exp_var->new_str;
+	if (!expand_all)
+		new_str = is_empty(exp_var->new_str);
+	clear_env(exp_var->env_var);
+	free(str);
+	free(exp_var);
+	return (new_str);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	char	*str = expand("map \'\"\'$USER\'\"\' taha,|", env, 0);
-	printf("%s\n", str);
-	// printf("%s\n", getenv("1"));
+	char	*str = malloc(8 * sizeof(char));
+	char	*s;
+	ft_strlcpy( str, "\"$USE\"" , 8);
+	s = expand_var(str, env, 1);
+	printf("%s\n", s);
 	// system("leaks a.out");
-	
 }

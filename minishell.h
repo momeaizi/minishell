@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/31 13:50:05 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:19:46 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,11 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
-typedef struct s_env_var
-{
-	char	*var;
-	char	*val;
-	int		var_len;
-	int		val_len;
-	char	end;
-}	t_env_var;
-
 //					string
 int			ft_strlen(char *str);
 void		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int			ft_strcmp(const char *s1, const char *s2);
+char		*ft_strdup(char *s1);
 char		*wrap_redirection_by_space(char *str);
 //					split
 void		split(char ***tokens, char *s, char c);
@@ -79,5 +71,8 @@ int		ft_isalpha(char c);
 int		ft_isnum(char c);
 int		ft_isalnum(char c);
 char	*ft_itoa(int n);
-
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_getenv(char *var, char **env);
+char	*expand_var(char *str, char **env, char expand_all);
+char	*remove_quotes(char *str);
 #endif

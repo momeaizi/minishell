@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:06 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/31 10:42:09 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:02:00 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,31 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
+}
+
+char	*ft_strdup(char *s1)
+{
+	char	*dst;
+	size_t	len;
+
+	len = ft_strlen(s1) + 1;
+	dst = (char *)malloc(len * sizeof(char));
+	if (!dst)
+		return (NULL);
+	ft_strlcpy(dst, s1, len);
+	return (dst);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while ((s1[i] || s2[i]) && i < n)
+	{
+		if (s1[i] != s2[i])
+			return (((unsigned char)s1[i] - s2[i]));
+		i++;
+	}
+	return (0);
 }
