@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lst_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:35:44 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/28 18:35:45 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/05/28 18:35:42 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/01 18:52:49 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	ft_lstadd_back(t_command **lst, t_command *new)
+void	ft_lstclear(t_command **head)
 {
-	t_command	*last;
+	t_command	*current;
 
-	if (lst)
+	while (*head)
 	{
-		if (*lst)
-		{
-			last = ft_lstlast(*lst);
-			last->next = new;
-		}
-		else
-			*lst = new;
+		current = *head;
+		*head = (*head)->next;
+		free(current->tokens->line);
+		free(current->tokens);
+		free(current);
 	}
 }

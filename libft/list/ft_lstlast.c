@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_all_strings.c                              :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:35:58 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/28 18:35:59 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/05/28 18:35:47 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/01 18:52:58 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	replace_all_strings(char **strs, char new, char old)
+t_command	*ft_lstlast(t_command *lst)
 {
-	int	i;
+	t_command	*head;
 
-	i = -1;
-	while (strs[++i])
-		replace_inside_quotes(strs[i], new, old);
+	head = lst;
+	if (!lst)
+		return (lst);
+	while (head->next)
+		head = head->next;
+	return (head);
 }

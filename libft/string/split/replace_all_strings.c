@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_clear.c                                     :+:      :+:    :+:   */
+/*   replace_all_strings.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:35:42 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/28 18:39:49 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/05/28 18:35:58 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/01 18:53:49 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../../minishell.h"
 
-void	ft_lstclear(t_command **head)
+void	replace_all_strings(char **strs, char new, char old)
 {
-	t_command	*current;
+	int	i;
 
-	while (*head)
-	{
-		current = *head;
-		*head = (*head)->next;
-		free(current->tokens->line);
-		free(current->tokens);
-		free(current);
-	}
+	i = -1;
+	while (strs[++i])
+		replace_inside_quotes(strs[i], new, old);
 }

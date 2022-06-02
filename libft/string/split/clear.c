@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/29 19:50:50 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/30 15:30:15 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/05/28 18:35:52 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/01 18:53:35 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../minishell.h"
 
-char	**ft_realloc(char **ptr, char *new)
+void	clear(char **paths, int *size, int j)
 {
-	int		i;
-	int		size;
-	char	**new_ptr;
-
-	i = -1;
-	size = 0;
-	while (ptr[size])
-		size++;
-	new_ptr = (char **)malloc((size + 2) * sizeof(char *));
-	if (!new_ptr)
-		return (ptr);
-	while (ptr[++i])
-	{
-		new_ptr[i] = ptr[i];
-	}
-	free(ptr);
-	new_ptr[i++] = new;
-	new_ptr[i] = NULL;
-	return (new_ptr);
+	while (--j >= 0)
+		free(paths[j]);
+	free(paths);
+	if (size)
+		free(size);
 }

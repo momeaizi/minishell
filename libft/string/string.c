@@ -6,11 +6,11 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:06 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 17:02:00 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:53:17 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	ft_strlen(char *str)
 {

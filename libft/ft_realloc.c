@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_inside_quotes.c                            :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:36:00 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/28 18:36:01 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/05/29 19:50:50 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/01 18:52:32 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	replace_inside_quotes(char *str, char new, char old)
+char	**ft_realloc(char **ptr, char *new)
 {
 	int		i;
-	int		j;
+	int		size;
+	char	**new_ptr;
 
 	i = -1;
-	while (str[++i])
+	size = 0;
+	while (ptr[size])
+		size++;
+	new_ptr = (char **)malloc((size + 2) * sizeof(char *));
+	if (!new_ptr)
+		return (ptr);
+	while (ptr[++i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			j = i;
-			i++;
-			while (str[i] && str[i] != str[j])
-			{
-				if (str[i] == old)
-					str[i] = new;
-				i++;
-			}
-		}
+		new_ptr[i] = ptr[i];
 	}
+	free(ptr);
+	new_ptr[i++] = new;
+	new_ptr[i] = NULL;
+	return (new_ptr);
 }

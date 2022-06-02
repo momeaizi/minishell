@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:19:46 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/02 16:33:41 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdlib.h>
+# include <unistd.h>
 # include <stdio.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -22,18 +23,14 @@
 
 typedef struct s_token
 {
-	char	open_flag;
-	char	*command;
-	char	*line;
 	char	**tokens;
-	char	**arguments;
-	char	**infiles;
-	char	**outfiles;
-	char	**heredocs;
+	char	*line;
+	char	**limiters;
 }	t_token;
 
 typedef struct s_command
 {
+	char				*command_name;
 	char				*command_path;
 	char				**command_args;
 	int					input;
@@ -64,9 +61,9 @@ t_command	*create_node(t_command **head, char *line);
 t_command	*tokenizer(char *str);
 
 
-char	**ft_realloc(char **ptr, char *new);
-void	parser(t_command *commands);
+void	parser(t_command *commands, char **env);
 
+char	**ft_realloc(char **ptr, char *new);
 int		ft_isalpha(char c);
 int		ft_isnum(char c);
 int		ft_isalnum(char c);
@@ -75,4 +72,15 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_getenv(char *var, char **env);
 char	*expand_var(char *str, char **env, char expand_all);
 char	*remove_quotes(char *str);
+
+
+
+//
+void	get_command(t_command *commands, char **env);
+void    heredoc(t_command *commands, char **env);
+int		redirect(char *token);
+
+
+int		check_quotes(char *str);
+void	check_redirect(t_command *commands);
 #endif

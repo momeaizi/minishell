@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:03:52 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:30:35 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/02 13:28:18 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,12 @@ char	*expand_var(char *str, char **env, char expand_all)
 	return (new_str);
 }
 
-int	main(int ac, char **av, char **env)
-{
-	char	*str = malloc(8 * sizeof(char));
-	char	*s;
-	ft_strlcpy( str, "\"$USE\"" , 8);
-	s = expand_var(str, env, 1);
-	printf("%s\n", s);
-	// system("leaks a.out");
-}
+// int	main(int ac, char **av, char **env)
+// {
+// 	char	*str = malloc(8 * sizeof(char));
+// 	char	*s;
+// 	ft_strlcpy( str, "\"$USE\"" , 8);
+// 	s = expand_var(str, env, 1);
+// 	printf("%s\n", s);
+// 	// system("leaks a.out");
+// }

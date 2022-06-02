@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/30 15:22:55 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/02 16:36:34 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ int main(int ac, char **av, char **env)
 	head = NULL;
 	tokens = NULL;
 	// char *str = readline("bash$ ");
-	char	str[] = "<main.c cat <<ss<\"te\"st<test2<test2>outfile1 taha | wc -l>outfile1337";
-	head = tokenizer(str);
-	parser(head);
-	// system("leaks a.out");
+	char	str[] = "echo \"taha \'\" < >> ss";
+	if (check_quotes(str))
+	{
+		head = tokenizer(str);
+		parser(head, env);
+	}
+	// system("leaks minishell");
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:01 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/28 18:36:02 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:53:54 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
 void	split(char ***tokens, char *s, char c)
 {
