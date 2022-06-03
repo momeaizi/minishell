@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 16:33:41 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/02 20:31:51 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_token
 	char	**tokens;
 	char	*line;
 	char	**limiters;
+	char	should_expand;
 }	t_token;
 
 typedef struct s_command
@@ -83,4 +84,7 @@ int		redirect(char *token);
 
 int		check_quotes(char *str);
 void	check_redirect(t_command *commands);
+
+
+void	*ft_calloc(size_t count, size_t size);
 #endif

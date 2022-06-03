@@ -19,7 +19,7 @@ all : $(NAME)
 
 
 $(NAME) :
-	$(CC) $(SRCS) -o $(NAME)
+	$(CC) -lreadline $(SRCS) -o $(NAME)
 clean :
 	rm -f $(OBJS)
 fclean : clean

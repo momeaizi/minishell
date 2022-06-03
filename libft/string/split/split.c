@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:01 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:53:54 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/02 20:54:40 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	split(char ***tokens, char *s, char c)
 	j = 0;
 	i = -1;
 	size = tokens_length(s, c);
-	*tokens = (char **)malloc(count_tokens(s, c) * sizeof(char *));
+	*tokens = (char **)ft_calloc(count_tokens(s, c), sizeof(char *));
 	if (!*tokens || !s)
 		return ;
 	while (s[++i])
@@ -35,8 +35,8 @@ void	split(char ***tokens, char *s, char c)
 			j++;
 		}
 	}
-	(*tokens)[j++] = NULL;
-	if (j != count_tokens(s, c))
+	free(size);
+	if ((j + 1) != count_tokens(s, c))
 		clear(*tokens, size, j);
 	replace_all_strings(*tokens, c, -1);
 }
