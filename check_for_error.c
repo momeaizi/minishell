@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 16:05:19 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 16:37:56 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:59:18 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,7 @@ void	check_redirect(t_command *commands)
 		while (commands->tokens->tokens[++i])
 		{
 			if (i && redirect(commands->tokens->tokens[i]) && redirect(commands->tokens->tokens[i - 1]))
-			{
 				write(2, "syntax error!\n", 15);
-                free(commands->command_name);
-				commands->command_name = NULL;
-			}
 		}
 		commands = commands->next;
 	}

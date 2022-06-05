@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:47:57 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 20:59:11 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:08:25 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ void	herdoc_read(int fd, char *limiter, char should_expand, char should_write, c
     }
 }
 
-void    heredoc(t_command *commands, char **env)
+void    heredoc(t_command *cmds, char **env)
 {
     int			i;
 	t_command	*tmp;
 
-	tmp = commands;
+	tmp = cmds;
+	cmds->tokens->index = -1;
 	while (tmp)
 	{
 		i = -1;
@@ -56,11 +57,12 @@ void    heredoc(t_command *commands, char **env)
 			{
 				tmp->tokens->should_expand = !is_there_any_quote(tmp->tokens->tokens[i]);
 				tmp->tokens->limiters = ft_realloc(tmp->tokens->limiters, remove_quotes(tmp->tokens->tokens[i]));
+				tmp->tokens->index = i;
 			}
 		}
 		tmp = tmp->next;
 	}
-	tmp = commands;
+	tmp = cmds;
 	while (tmp)
 	{
 		i = -1;

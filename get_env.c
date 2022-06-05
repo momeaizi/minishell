@@ -6,11 +6,11 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 16:59:28 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 17:08:25 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:42:20 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 char	*ft_getenv(char *var, char **env)
 {

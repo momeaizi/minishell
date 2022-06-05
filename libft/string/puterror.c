@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear.c                                            :+:      :+:    :+:   */
+/*   puterror.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:35:52 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/04 18:55:04 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/04 22:17:57 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/04 22:19:51 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../minishell.h"
+#include "../../minishell.h"
 
-void	clear(char **paths, int j)
+void    puterror(char *name, char *error)
 {
-	while (--j >= 0)
-		free(paths[j]);
-	free(paths);
+    write(2, name, ft_strlen(name));
+    write(2, ": ", 2);
+    write(2, error, ft_strlen(error));
+    write(2, "\n", 1);
 }

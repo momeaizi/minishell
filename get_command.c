@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:07:05 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 20:58:34 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:22:03 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,59 @@ int	redirect(char *token)
 	return (1);
 }
 
-void	get_command(t_command *commands, char **env)
+char	*get_command_path(char *command_name, char **env)
 {
-	int			i;
+	char	*path;
+	char	*command_path;
+	char	**paths;
+	int		i;
 
-	while (commands)
+	if (!access(command_name, F_OK))
+		return (command_name);
+	i = -1;
+	path = ft_getenv("PATH", env);
+	split(&paths, path, ':');
+	free(path);
+	path = strjoin("/", command_name);
+	while (paths[++i])
+	{
+		command_path = strjoin(paths[i], path);
+		if (!access(command_path, F_OK))
+		{
+			i = 0;
+			while (paths[i])
+				i++;
+			clear(paths, i);
+			return (command_path);
+		}
+		free(command_path);
+		command_path = NULL;
+	}
+	puterror(command_name, "command not found");
+	return (NULL);
+}
+
+
+void	get_cmds(t_command *cmds, char **env)
+{
+	char	*cmd;
+	int		i;
+
+	while (cmds)
 	{
 		i = -1;
-		while (commands->tokens->tokens[++i])
+		while (cmds->tokens->tokens[++i])
 		{
-			if (!redirect(commands->tokens->tokens[i]) && ((i && !redirect(commands->tokens->tokens[i - 1])) || !i))
+			if (!redirect(cmds->tokens->tokens[i]) && ((i && !redirect(cmds->tokens->tokens[i - 1])) || !i))
 			{
-				if (!commands->command_name)
-					commands->command_name = expand_var(commands->tokens->tokens[i], env, 0);
-				else
-					commands->command_args = ft_realloc(commands->command_args, expand_var(commands->tokens->tokens[i], env, 0));
+				if (!cmds->command_name)
+				{
+					cmds->command_name = expand_var(cmds->tokens->tokens[i], env, 0);
+					cmds->command_path = get_command_path(cmds->command_name, env);
+				}
+				cmds->command_args = ft_realloc(cmds->command_args, expand_var(cmds->tokens->tokens[i], env, 0));
 			}
 		}
-		commands = commands->next;
+		cmds = cmds->next;
 	}
 }

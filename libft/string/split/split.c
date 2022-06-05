@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:01 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 20:54:40 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:55:27 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	split(char ***tokens, char *s, char c)
 	}
 	free(size);
 	if ((j + 1) != count_tokens(s, c))
-		clear(*tokens, size, j);
+		clear(*tokens, j);
 	replace_all_strings(*tokens, c, -1);
 }

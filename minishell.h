@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 20:31:51 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/05 21:41:33 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 # define MINISHELL_H
 
 # include <stdlib.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <errno.h>
+# include <errno.h>
+# include <string.h>
 
 typedef struct s_token
 {
 	char	**tokens;
 	char	*line;
 	char	**limiters;
+	int		index;
 	char	should_expand;
 }	t_token;
 
 typedef struct s_command
 {
+	char				should_execute;
 	char				*command_name;
 	char				*command_path;
 	char				**command_args;
@@ -44,6 +48,8 @@ typedef struct s_command
 int			ft_strlen(char *str);
 void		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int			ft_strcmp(const char *s1, const char *s2);
+void    	puterror(char *name, char *error);
+char		*strjoin(char *s1, char *s2);
 char		*ft_strdup(char *s1);
 char		*wrap_redirection_by_space(char *str);
 //					split
@@ -52,7 +58,7 @@ int			count_tokens(char *str, char c);
 int			*tokens_length(char *str, char c);
 void		replace_inside_quotes(char *str, char new, char old);
 void		replace_all_strings(char **strs, char new, char old);
-void		clear(char **paths, int *size, int j);
+void		clear(char **paths, int j);
 //					list
 t_command	*ft_lstlast(t_command *lst);
 void		ft_lstadd_back(t_command **lst, t_command *new);
@@ -77,8 +83,10 @@ char	*remove_quotes(char *str);
 
 
 //
-void	get_command(t_command *commands, char **env);
+void	get_cmds(t_command *commands, char **env);
 void    heredoc(t_command *commands, char **env);
+void    get_infiles(t_command *cmds);
+void    get_outfiles(t_command *cmds);
 int		redirect(char *token);
 
 
