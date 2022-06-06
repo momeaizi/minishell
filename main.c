@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 17:15:49 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 19:54:58 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	exe(t_command *tmp, char **env)
 					close(tmp->output);
 				if (tmp->should_execute)
 					if (execve(tmp->command_path, tmp->command_args, env) == -1)
-						exit (1);
+						exit (puterror("", strerror(errno)));
 				exit (2);
 			}
 			wait(NULL);

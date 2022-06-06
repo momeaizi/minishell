@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 16:59:28 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 19:15:48 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_command
 int			ft_strlen(char *str);
 void		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int			ft_strcmp(const char *s1, const char *s2);
-void    	puterror(char *name, char *error);
+int			puterror(char *name, char *error);
 char		*strjoin(char *s1, char *s2);
 char		*ft_strdup(char *s1);
 char		*wrap_redirection_by_space(char *str);
@@ -85,7 +85,7 @@ char	*remove_quotes(char *str);
 
 //
 void	get_cmds(t_command *commands, char **env);
-void    heredoc(t_command *commands, char **env);
+void    heredoc(t_command *cmds, char **env);
 void    get_infiles(t_command *cmds, char **env);
 void    get_outfiles(t_command *cmds, char **env);
 int		redirect(char *token);

@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 21:33:45 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 16:57:26 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:34:15 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void    get_outfiles(t_command *cmds, char **env)
 		{
 			if (i && (!ft_strcmp(">", cmds->tokens->tokens[i - 1]) || !ft_strcmp(">>", cmds->tokens->tokens[i - 1])))
 			{
-				if (fd == -1)
-					close(fd);
+				if (cmds->output != 1)
+					close(cmds->output);
                 if (!ft_strcmp(">", cmds->tokens->tokens[i - 1]))
 				    fd = open(cmds->tokens->tokens[i], O_RDWR | O_CREAT, 0644);
                 else
