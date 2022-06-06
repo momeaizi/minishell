@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 16:05:19 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/05 17:59:18 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:59:17 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_quotes(char *str)
 }
 
 
-void	check_redirect(t_command *commands)
+int	check_redirect(t_command *commands)
 {
     int	i;
 
@@ -56,8 +56,9 @@ void	check_redirect(t_command *commands)
 		while (commands->tokens->tokens[++i])
 		{
 			if (i && redirect(commands->tokens->tokens[i]) && redirect(commands->tokens->tokens[i - 1]))
-				write(2, "syntax error!\n", 15);
+				return (!write(2, "syntax error!\n", 15));
 		}
 		commands = commands->next;
 	}
+	return (1);
 }

@@ -6,35 +6,75 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/05 21:46:53 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:15:49 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	cleaning(t_command **cmds, int ***pipes)
+{
+	t_command	**tmp;
+
+	tmp = cmds;
+	close_all(*tmp, pipes);
+	clear_tokens(tmp);
+	ft_lstclear(cmds);
+}
+
+void	exe(t_command *tmp, char **env)
+{
+	int	id;
+
+	while (tmp)
+		{
+			id = fork();
+			if (!id)
+			{
+				dup2(tmp->input, 0);
+				dup2(tmp->output, 1);
+				if (tmp->input != 0)
+					close(tmp->input);
+				if (tmp->output != 1)
+					close(tmp->output);
+				if (tmp->should_execute)
+					if (execve(tmp->command_path, tmp->command_args, env) == -1)
+						exit (1);
+				exit (2);
+			}
+			wait(NULL);
+			if (tmp->input != 0)
+				close(tmp->input);
+			if (tmp->output != 1)
+				close(tmp->output);
+			tmp = tmp->next;
+		}
+}
 
 int main(int ac, char **av, char **env)
 {
-	int 		i;
+	char		*str;
+	int			id;
+	int			**pipes;
 	t_command	*head;
-	t_command	*tmp;
-	char		**tokens;
-	char	*new;
-
-	head = NULL;
-	tokens = NULL;
-	// char *str = readline("bash$ ");
-	char	*str = malloc(48);
-	ft_strlcpy(str, "cat < main.c > outfile1> outfile >> outfile1337", 48);
-	if (check_quotes(str))
+	
+	while (1)
 	{
-		head = tokenizer(str);
-		parser(head, env);
+		head  = NULL;
+		str = readline("Bash>-$");
+		if (check_quotes(str) && ft_strlen(str))
+		{
+			head = tokenizer(str);
+			if (check_redirect(head))
+				parser(head, &pipes,env);
+			//replace exe by your execution start point function
+			exe(head, env);
+			//
+			free(str);
+			cleaning(&head, &pipes);
+		}
+		// system("leaks minishell");
 	}
-	dup2(head->input, 0);
-	dup2(head->output, 1);
-	close(head->input);
-	close(head->output);
-	execve(head->command_path, head->command_args, env);
 	return (0);
 }
+

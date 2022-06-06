@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:07:05 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/05 18:22:03 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:56:43 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,14 @@ char	*get_command_path(char *command_name, char **env)
 			while (paths[i])
 				i++;
 			clear(paths, i);
+			free(path);
 			return (command_path);
 		}
 		free(command_path);
 		command_path = NULL;
 	}
+	clear(paths, i);
+	free(path);
 	puterror(command_name, "command not found");
 	return (NULL);
 }
@@ -69,10 +72,10 @@ void	get_cmds(t_command *cmds, char **env)
 			{
 				if (!cmds->command_name)
 				{
-					cmds->command_name = expand_var(cmds->tokens->tokens[i], env, 0);
+					cmds->command_name = expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0);
 					cmds->command_path = get_command_path(cmds->command_name, env);
 				}
-				cmds->command_args = ft_realloc(cmds->command_args, expand_var(cmds->tokens->tokens[i], env, 0));
+				cmds->command_args = ft_realloc(cmds->command_args, expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0));
 			}
 		}
 		cmds = cmds->next;

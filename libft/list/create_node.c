@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:35:38 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/05 21:33:20 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 10:24:08 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_command	*create_node(t_command **head, char *line)
 	node->command_path = NULL;
 	node->tokens->limiters = (char **)ft_calloc(1, sizeof(char *));
 	node->command_args = (char **)ft_calloc(1, sizeof(char *));
+	node->should_execute = 1;
 	node->input = 0;
 	node->output = 1;
 	node->next = NULL;

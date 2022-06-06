@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/05 21:41:33 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:59:28 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ void		clear(char **paths, int j);
 t_command	*ft_lstlast(t_command *lst);
 void		ft_lstadd_back(t_command **lst, t_command *new);
 void		ft_lstclear(t_command **head);
+int			ft_lstsize(t_command *cmds);
 t_command	*create_node(t_command **head, char *line);
 //					tokenizer
 t_command	*tokenizer(char *str);
 
 
-void	parser(t_command *commands, char **env);
+void	parser(t_command *cmds, int ***pipes, char **env);
 
 char	**ft_realloc(char **ptr, char *new);
 int		ft_isalpha(char c);
@@ -85,14 +86,19 @@ char	*remove_quotes(char *str);
 //
 void	get_cmds(t_command *commands, char **env);
 void    heredoc(t_command *commands, char **env);
-void    get_infiles(t_command *cmds);
-void    get_outfiles(t_command *cmds);
+void    get_infiles(t_command *cmds, char **env);
+void    get_outfiles(t_command *cmds, char **env);
 int		redirect(char *token);
 
 
 int		check_quotes(char *str);
-void	check_redirect(t_command *commands);
+int		check_redirect(t_command *commands);
 
 
 void	*ft_calloc(size_t count, size_t size);
+
+
+void	clear_tokens(t_command **head);
+void    open_pipes(t_command *cmds, int ***pipes);
+void    close_all(t_command *cmds, int ***pipes);
 #endif

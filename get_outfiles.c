@@ -6,13 +6,13 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 21:33:45 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/05 21:44:26 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:57:26 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    get_outfiles(t_command *cmds)
+void    get_outfiles(t_command *cmds, char **env)
 {
     int i;
     int	fd;
@@ -28,13 +28,15 @@ void    get_outfiles(t_command *cmds)
 				if (fd == -1)
 					close(fd);
                 if (!ft_strcmp(">", cmds->tokens->tokens[i - 1]))
-				    fd = open(cmds->tokens->tokens[i], O_RDWR | O_CREAT);
+				    fd = open(cmds->tokens->tokens[i], O_RDWR | O_CREAT, 0644);
                 else
-				    fd = open(cmds->tokens->tokens[i], O_RDWR | O_CREAT | O_APPEND);
-				if (fd == -1 || access(cmds->tokens->tokens[i], F_OK))
+				    fd = open(cmds->tokens->tokens[i], O_RDWR | O_CREAT | O_APPEND, 0644);
+				cmds->output = fd;
+				if (fd == -1)
+				{
 					puterror(cmds->tokens->tokens[i], strerror(errno));
-				else
-					cmds->output = fd;
+					cmds->should_execute = 0;
+				}
 			}
 		}
 		cmds = cmds->next;
