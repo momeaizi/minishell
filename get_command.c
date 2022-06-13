@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:07:05 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 19:54:16 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/12 20:39:25 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_command_path(char *command_name, char **env)
 	char	**paths;
 	int		i;
 
-	if (!access(command_name, F_OK))
+	if (!access(command_name, F_OK) && command_name[0] == '/')
 		return (ft_strdup(command_name));
 	i = -1;
 	path = ft_getenv("PATH", env);
