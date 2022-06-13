@@ -67,11 +67,11 @@ void    heredoc(t_command *cmds, char **env)
 		i = -1;
 		while (tmp->tokens->tokens[++i])
 		{
-			if (i > 1 && !ft_strcmp("<<", tmp->tokens->tokens[i - 1]) && !redirect(tmp->tokens->tokens[i]) && !redirect(tmp->tokens->tokens[i - 2]))
+			if (!ft_strcmp("<<", tmp->tokens->tokens[i]))
 			{
-				tmp->tokens->should_expand = !is_there_any_quote(tmp->tokens->tokens[i]);
-				tmp->tokens->limiters = ft_realloc(tmp->tokens->limiters, remove_quotes(tmp->tokens->tokens[i]));
-				tmp->tokens->index = i;
+				tmp->tokens->should_expand = !is_there_any_quote(tmp->tokens->tokens[i + 1]);
+				tmp->tokens->limiters = ft_realloc(tmp->tokens->limiters, remove_quotes(tmp->tokens->tokens[i + 1]));
+				tmp->tokens->index = i - 1;
 			}
 		}
 		tmp = tmp->next;

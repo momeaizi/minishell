@@ -29,7 +29,7 @@ char	*get_command_path(char *command_name, char **env)
 	char	**paths;
 	int		i;
 
-	if (!access(command_name, F_OK) && command_name[0] == '/')
+	if (!access(command_name, F_OK))
 		return (ft_strdup(command_name));
 	i = -1;
 	path = ft_getenv("PATH", env);
@@ -73,9 +73,9 @@ void	get_cmds(t_command *cmds, char **env)
 				if (!cmds->command_name)
 				{
 					cmds->command_name = expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0);
-					cmds->command_path = get_command_path(cmds->command_name, env);
+					cmds->command_path = get_command_path(ft_strdup(cmds->command_name), env);
 				}
-				cmds->command_args = ft_realloc(cmds->command_args, expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0));
+				cmds->command_args = ft_realloc(cmds->command_args, expand_var(remove_quotes(ft_strdup(cmds->tokens->tokens[i])), env, 0));
 			}
 		}
 		cmds = cmds->next;

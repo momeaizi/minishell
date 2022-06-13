@@ -55,7 +55,7 @@ int	check_redirect(t_command *commands)
 		i = -1;
 		while (commands->tokens->tokens[++i])
 		{
-			if (i && redirect(commands->tokens->tokens[i]) && redirect(commands->tokens->tokens[i - 1]))
+			if (redirect(commands->tokens->tokens[i]) && ((i && redirect(commands->tokens->tokens[i - 1])) || !commands->tokens->tokens[i + 1]))
 				return (!write(2, "syntax error!\n", 15));
 		}
 		commands = commands->next;

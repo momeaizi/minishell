@@ -61,14 +61,17 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		head  = NULL;
-		str = readline("Bash>-$");
+		printf("\033[0;31m");
+		str = readline("Bash1.0>-$");
+		printf("\033[0m");
 		if (check_quotes(str) && ft_strlen(str))
 		{
 			head = tokenizer(str);
 			if (check_redirect(head))
+			{
 				parser(head, &pipes,env);
-			//replace exe by your execution start point function
-			exe(head, env);
+				exe(head, env);
+			}
 			//
 			cleaning(&head, &pipes);
 		}
