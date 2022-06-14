@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:07:05 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/12 20:39:25 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/13 23:11:08 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	get_cmds(t_command *cmds, char **env)
 			{
 				if (!cmds->command_name)
 				{
-					cmds->command_name = expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0);
+					cmds->command_name = remove_quotes(expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0));
 					cmds->command_path = get_command_path(ft_strdup(cmds->command_name), env);
 				}
-				cmds->command_args = ft_realloc(cmds->command_args, expand_var(remove_quotes(ft_strdup(cmds->tokens->tokens[i])), env, 0));
+				cmds->command_args = ft_realloc(cmds->command_args, remove_quotes(expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0)));
 			}
 		}
 		cmds = cmds->next;

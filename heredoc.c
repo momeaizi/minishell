@@ -6,12 +6,11 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:47:57 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 19:19:35 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:19:14 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	is_there_any_quote(char *str)
 {
@@ -24,70 +23,81 @@ int	is_there_any_quote(char *str)
 	return (0);
 }
 
-void	herdoc_read(t_command *cmds, char *limiter, char should_expand, char should_write, char **env)
+void	free_lines(char *line, char *new_line)
 {
-    char    *line;
-	char 	*new_line;
+	free(line);
+	free(new_line);
+}
+
+void	herdoc_read(t_command *cmds, char *limit, char shld_exp, char shld_wr)
+{
+	char	*line;
+	char	*new_line;
 	int		pipes[2];
 
-	if (should_write)
+	if (shld_wr)
 	{
 		if (pipe(pipes) < 0)
 			exit (puterror("", strerror(errno)));
 		cmds->input = pipes[0];
 	}
-    while (1)
-    {
-        line = readline("> ");
+	while (1)
+	{
+		line = readline("> ");
 		new_line = strjoin(line, "\n");
-        if (!ft_strcmp(limiter, line))
-            break ;
-		if (should_expand)
-			new_line = expand_var(new_line, env, 1);
-		if (should_write)
-        	write(pipes[1], new_line, ft_strlen(new_line));
-		free(line);
-		free(new_line);
-    }
-	if (should_write)
+		if (!ft_strcmp(limit, line))
+			break ;
+		if (shld_exp)
+			new_line = expand_var(new_line, cmds->env, 1);
+		if (shld_wr)
+			write(pipes[1], new_line, ft_strlen(new_line));
+		free_lines(line, new_line);
+	}
+	if (shld_wr)
 		close(pipes[1]);
-	free(line);
-	free(new_line);
+	free_lines(line, new_line);
 }
 
-void    heredoc(t_command *cmds, char **env)
+void	get_heredocs(t_command *cmds)
 {
-    int			i;
-	t_command	*tmp;
+	int	i;
 
-	tmp = cmds;
 	cmds->tokens->index = -1;
-	while (tmp)
+	while (cmds)
 	{
 		i = -1;
-		while (tmp->tokens->tokens[++i])
+		while (cmds->tokens->tokens[++i])
 		{
-			if (!ft_strcmp("<<", tmp->tokens->tokens[i]))
+			if (!ft_strcmp("<<", cmds->tokens->tokens[i]))
 			{
-				tmp->tokens->should_expand = !is_there_any_quote(tmp->tokens->tokens[i + 1]);
-				tmp->tokens->limiters = ft_realloc(tmp->tokens->limiters, remove_quotes(tmp->tokens->tokens[i + 1]));
-				tmp->tokens->index = i - 1;
+				cmds->tokens->should_expand = \
+				!is_there_any_quote(cmds->tokens->tokens[i + 1]);
+				cmds->tokens->limiters = ft_realloc(cmds->tokens->limiters, \
+				remove_quotes(cmds->tokens->tokens[i + 1]));
+				cmds->tokens->index = i + 1;
 			}
 		}
-		tmp = tmp->next;
-	}
-	tmp = cmds;
-	while (tmp)
-	{
-		i = -1;
-		while (tmp->tokens->limiters[++i])
-		{
-			if (!tmp->tokens->limiters[i + 1])
-				herdoc_read(tmp, tmp->tokens->limiters[i], tmp->tokens->should_expand, 1, env);
-			else
-				herdoc_read(tmp, tmp->tokens->limiters[i], tmp->tokens->should_expand, 0, env);
-		}
-		tmp = tmp->next;
+		cmds = cmds->next;
 	}
 }
 
+void	heredoc(t_command *cmds, char **env)
+{
+	int			i;
+
+	get_heredocs(cmds);
+	while (cmds)
+	{
+		i = -1;
+		while (cmds->tokens->limiters[++i])
+		{
+			if (cmds->tokens->limiters[i + 1])
+				herdoc_read(cmds, cmds->tokens->limiters[i], \
+				cmds->tokens->should_expand, 0);
+			else
+				herdoc_read(cmds, cmds->tokens->limiters[i], \
+				cmds->tokens->should_expand, 1);
+		}
+		cmds = cmds->next;
+	}
+}

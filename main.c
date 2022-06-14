@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/12 20:39:54 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:37:46 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		head  = NULL;
-		printf("\033[0;31m");
+		printf("\033[0;35m");
 		str = readline("Bash1.0>-$");
-		printf("\033[0m");
+		// add_history
+		printf("\033[0;37m");
 		if (check_quotes(str) && ft_strlen(str))
 		{
 			head = tokenizer(str);

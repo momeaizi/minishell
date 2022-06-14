@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 17:18:45 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:30:04 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:44:33 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,20 @@ char	*remove_quotes(char *str)
 	len = 0;
 	replace_quotes(str);
 	while (str[++i])
-		if (str[i] != -1)
+		if (str[i] == -1 || (str[i] == '$' && str[i + 1] == -1))
 			len++;
 	if (!len)
 		return (str);
-	new_str = (char *)malloc((len + 1) * sizeof(char));
+	new_str = (char *)malloc((ft_strlen(str) - len + 1) * sizeof(char));
 	if (!new_str)
 		return (str);
 	i = -1;
 	j = 0;
 	while (str[++i])
-		if (str[i] != -1)
+	{
+		if (str[i] != -1 || (str[i] == '$' && str[i + 1] != -1))
 			new_str[j++] = str[i];
+	}
 	new_str[j] = 0;
 	free(str);
 	return (new_str);

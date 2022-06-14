@@ -6,13 +6,13 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 14:33:47 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 18:26:42 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/13 23:18:59 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    open_pipes(t_command *cmds, int ***pipes)
+void	open_pipes(t_command *cmds, int ***pipes)
 {
 	int	i;
 	int	size;
@@ -24,8 +24,8 @@ void    open_pipes(t_command *cmds, int ***pipes)
 	*pipes = (int **)malloc((size - 1) * sizeof(int *));
 	if (!*pipes)
 		return ;
-    while (cmds)
-    {
+	while (cmds)
+	{
 		if (!cmds->next)
 			return ;
 		(*pipes)[i] = (int *)malloc(2 * sizeof(int));
@@ -34,6 +34,6 @@ void    open_pipes(t_command *cmds, int ***pipes)
 		cmds->output = (*pipes)[i][1];
 		cmds->next->input = (*pipes)[i][0];
 		i++;
-        cmds = cmds->next;
-    }   
+		cmds = cmds->next;
+	}
 }

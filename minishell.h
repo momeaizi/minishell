@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 19:15:48 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:54:05 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_command
 	char				**command_args;
 	int					input;
 	int					output;
+	char				**env;
 	t_token				*tokens;
 	struct s_command	*next;
 }	t_command;
@@ -68,37 +69,31 @@ t_command	*create_node(t_command **head, char *line);
 //					tokenizer
 t_command	*tokenizer(char *str);
 
+void		parser(t_command *cmds, int ***pipes, char **env);
 
-void	parser(t_command *cmds, int ***pipes, char **env);
-
-char	**ft_realloc(char **ptr, char *new);
-int		ft_isalpha(char c);
-int		ft_isnum(char c);
-int		ft_isalnum(char c);
-char	*ft_itoa(int n);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_getenv(char *var, char **env);
-char	*expand_var(char *str, char **env, char expand_all);
-char	*remove_quotes(char *str);
-
-
+char		**ft_realloc(char **ptr, char *new);
+int			ft_isalpha(char c);
+int			ft_isnum(char c);
+int			ft_isalnum(char c);
+char		*ft_itoa(int n);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+char		*ft_getenv(char *var, char **env);
+char		*expand_var(char *str, char **env, char expand_all);
+char		*remove_quotes(char *str);
 
 //
-void	get_cmds(t_command *commands, char **env);
-void    heredoc(t_command *cmds, char **env);
-void    get_infiles(t_command *cmds, char **env);
-void    get_outfiles(t_command *cmds, char **env);
-int		redirect(char *token);
+void		get_cmds(t_command *commands, char **env);
+void		heredoc(t_command *cmds, char **env);
+void		get_infiles(t_command *cmds, char **env);
+void		get_outfiles(t_command *cmds, char **env);
+int			redirect(char *token);
 
+int			check_quotes(char *str);
+int			check_redirect(t_command *commands);
 
-int		check_quotes(char *str);
-int		check_redirect(t_command *commands);
+void		*ft_calloc(size_t count, size_t size);
 
-
-void	*ft_calloc(size_t count, size_t size);
-
-
-void	clear_tokens(t_command **head);
-void    open_pipes(t_command *cmds, int ***pipes);
-void    close_all(t_command *cmds, int ***pipes);
+void		clear_tokens(t_command **head);
+void		open_pipes(t_command *cmds, int ***pipes);
+void		close_all(t_command *cmds, int ***pipes);
 #endif
