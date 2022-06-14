@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 17:18:45 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 16:44:33 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 21:00:27 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ char	*remove_quotes(char *str)
 	i = -1;
 	j = 0;
 	while (str[++i])
-	{
-		if (str[i] != -1 || (str[i] == '$' && str[i + 1] != -1))
+		if (!(str[i] == -1 || (str[i] == '$' && str[i + 1] == -1)))
 			new_str[j++] = str[i];
-	}
 	new_str[j] = 0;
 	free(str);
 	return (new_str);

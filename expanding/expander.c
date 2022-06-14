@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:03:52 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/13 22:30:24 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:48:17 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ void	expander(char *str, char **env, t_expand_var *exp_var)
 char	*expand_var(char *str, char **env, char expand_all)
 {
 	t_expand_var	*exp_var;
-	char			*new_str;
+	char			*new_str = NULL;
 
+	exp_var = NULL;
 	exp_var = init(exp_var, str, expand_all);
 	if (!exp_var || !exp_var->count)
 	{
@@ -118,13 +119,14 @@ char	*expand_var(char *str, char **env, char expand_all)
 			free(exp_var);
 		return (str);
 	}
-	expander(str, env, exp_var);
-	replace_var_by_val(str, exp_var);
-	new_str = exp_var->new_str;
-	if (!expand_all)
-		new_str = is_empty(exp_var->new_str);
-	clear_env(exp_var->env_var);
-	free(str);
-	free(exp_var);
+	env = NULL;
+	// expander(str, env, exp_var);
+	// replace_var_by_val(str, exp_var);
+	// new_str = exp_var->new_str;
+	// if (!expand_all)
+	// 	new_str = is_empty(exp_var->new_str);
+	// clear_env(exp_var->env_var);
+	// free(str);
+	// free(exp_var);
 	return (new_str);
 }

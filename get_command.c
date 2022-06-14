@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:07:05 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/13 23:11:08 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:16:39 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char	*get_command_path(char *command_name, char **env)
 
 void	get_cmds(t_command *cmds, char **env)
 {
-	char	*cmd;
 	int		i;
 
 	while (cmds)

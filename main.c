@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 15:37:46 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:46:24 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,34 @@ void	exe(t_command *tmp, char **env)
 
 int main(int ac, char **av, char **env)
 {
-	char		*str;
-	int			id;
-	int			**pipes;
-	t_command	*head;
-	
-	while (1)
-	{
-		head  = NULL;
-		printf("\033[0;35m");
-		str = readline("Bash1.0>-$");
-		// add_history
-		printf("\033[0;37m");
-		if (check_quotes(str) && ft_strlen(str))
-		{
-			head = tokenizer(str);
-			if (check_redirect(head))
-			{
-				parser(head, &pipes,env);
-				exe(head, env);
-			}
-			//
-			cleaning(&head, &pipes);
-		}
-		free(str);
-		// system("leaks minishell");
-	}
+	// char		*str;
+	// int			**pipes;
+	// t_command	*head;
+
+	if (ac > 1 || av[1])
+		return (1);
+	// while (1)
+	// {
+	// 	head  = NULL;
+	// 	printf("\033[0;35m");
+	// 	str = readline("Bash1.0>-$");
+	// 	// add_history
+	// 	printf("\033[0;37m");
+	// 	if (check_quotes(str) && ft_strlen(str))
+	// 	{
+	// 		head = tokenizer(str);
+	// 		if (check_redirect(head))
+	// 		{
+	// 			parser(head, &pipes,env);
+	// 			exe(head, env);
+	// 		}
+	// 		//
+	// 		cleaning(&head, &pipes);
+	// 	}
+	// 	free(str);
+	// 	// system("leaks minishell");
+	// }
+	printf("%s\n", expand_var(ft_strdup("$USER"), env, 0));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:39:02 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/13 23:15:26 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:08:34 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	parser(t_command *cmds, int ***pipes, char **env)
 {
-	int	i;
-
-	heredoc(cmds, env);
+	heredoc(cmds);
 	open_pipes(cmds, pipes);
 	get_infiles(cmds, env);
 	get_outfiles(cmds, env);

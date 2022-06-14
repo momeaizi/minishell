@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 15:54:05 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 21:59:24 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char		*remove_quotes(char *str);
 
 //
 void		get_cmds(t_command *commands, char **env);
-void		heredoc(t_command *cmds, char **env);
+void		heredoc(t_command *cmds);
 void		get_infiles(t_command *cmds, char **env);
 void		get_outfiles(t_command *cmds, char **env);
 int			redirect(char *token);

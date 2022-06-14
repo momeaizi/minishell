@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:47:57 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 15:19:14 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/14 21:59:03 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	get_heredocs(t_command *cmds)
 	}
 }
 
-void	heredoc(t_command *cmds, char **env)
+void	heredoc(t_command *cmds)
 {
 	int			i;
 
