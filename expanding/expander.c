@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:03:52 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 22:48:17 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/15 12:25:18 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	replace_var_by_val(char *str, t_expand_var *exp_var)
 
 void	expander(char *str, char **env, t_expand_var *exp_var)
 {
-	int				i;
-	int				index;
+	int	i;
+	int	index;
 
 	i = -1;
 	index = 0;
-	while (str[++i])
+	while (++i < exp_var->str_len)
 	{
 		if (str[i] == '\"')
 			exp_var->double_qoute = !exp_var->double_qoute;
@@ -109,7 +109,7 @@ void	expander(char *str, char **env, t_expand_var *exp_var)
 char	*expand_var(char *str, char **env, char expand_all)
 {
 	t_expand_var	*exp_var;
-	char			*new_str = NULL;
+	char			*new_str;
 
 	exp_var = NULL;
 	exp_var = init(exp_var, str, expand_all);
@@ -119,14 +119,13 @@ char	*expand_var(char *str, char **env, char expand_all)
 			free(exp_var);
 		return (str);
 	}
-	env = NULL;
-	// expander(str, env, exp_var);
-	// replace_var_by_val(str, exp_var);
-	// new_str = exp_var->new_str;
-	// if (!expand_all)
-	// 	new_str = is_empty(exp_var->new_str);
-	// clear_env(exp_var->env_var);
-	// free(str);
-	// free(exp_var);
+	expander(str, env, exp_var);
+	replace_var_by_val(str, exp_var);
+	new_str = exp_var->new_str;
+	if (!expand_all)
+		new_str = is_empty(exp_var->new_str);
+	clear_env(exp_var->env_var);
+	free(str);
+	free(exp_var);
 	return (new_str);
 }

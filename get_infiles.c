@@ -6,14 +6,17 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 21:49:58 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 21:55:45 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/15 13:14:07 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	open_file(t_command *cmd, char *infile, int fd, int i)
+void	open_infile(t_command *cmd, char *infile, int i)
 {
+	int	fd;
+
+	fd = open(infile, O_RDONLY);
 	if (fd == -1 || access(cmd->tokens->tokens[i], F_OK))
 	{
 		cmd->should_execute = 0;
@@ -25,7 +28,7 @@ void	open_file(t_command *cmd, char *infile, int fd, int i)
 			close(cmd->input);
 		cmd->input = fd;
 	}
-	if (fd != -1 && fd != cmd->input)
+	else if (fd != -1)
 		close(fd);
 	free(infile);
 }
@@ -40,14 +43,19 @@ void	get_infiles(t_command *cmds, char **env)
 	while (cmds)
 	{
 		i = -1;
-		while (cmds->tokens->tokens[++i])
+		while (cmds->tokens->tokens[++i] && cmds->should_execute)
 		{
 			if (i && !ft_strcmp("<", cmds->tokens->tokens[i - 1]))
 			{
 				infile = remove_quotes(\
 				expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0));
-				fd = open(infile, O_RDONLY);
-				open_file(cmds, infile, fd, i);
+				if (!ft_strlen(infile))
+				{
+					puterror(cmds->tokens->tokens[i], "ambiguous redirect");
+					cmds->should_execute = 0;
+				}
+				else
+					open_infile(cmds, infile, i);
 			}
 		}
 		cmds = cmds->next;

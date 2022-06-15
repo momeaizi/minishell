@@ -6,47 +6,55 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 21:33:45 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/12 20:05:35 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/15 13:16:45 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    get_outfiles(t_command *cmds, char **env)
+void	open_outfile(t_command *cmd, char *outfile, int i)
 {
-    int		i;
-    int		fd;
-	char	*file_name;
+	int	fd;
 
-	fd = -1;
+	if (!ft_strcmp(">", cmd->tokens->tokens[i - 1]))
+		fd = open(outfile, O_RDWR | O_CREAT, 0644);
+	else
+		fd = open(outfile, O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (fd != -1)
+	{
+		if (cmd->output != 1)
+			close(cmd->output);
+		cmd->output = fd;
+	}
+	else
+	{
+		puterror(cmd->tokens->tokens[i], strerror(errno));
+		cmd->should_execute = 0;
+	}
+}
+
+void	get_outfiles(t_command *cmds, char **env)
+{
+	int		i;
+	char	*outfile;
+
 	while (cmds)
 	{
 		i = -1;
 		while (cmds->tokens->tokens[++i] && cmds->should_execute)
 		{
-			if (i && (!ft_strcmp(">", cmds->tokens->tokens[i - 1]) || !ft_strcmp(">>", cmds->tokens->tokens[i - 1])))
+			if (i && (!ft_strcmp(">", cmds->tokens->tokens[i - 1]) \
+			|| !ft_strcmp(">>", cmds->tokens->tokens[i - 1])))
 			{
-				file_name = expand_var(remove_quotes(ft_strdup(cmds->tokens->tokens[i])), env, 0);
-				if (!ft_strlen(file_name))
+				outfile = remove_quotes(expand_var(\
+				ft_strdup(cmds->tokens->tokens[i]), env, 0));
+				if (!ft_strlen(outfile))
 				{
 					puterror(cmds->tokens->tokens[i], "ambiguous redirect");
 					cmds->should_execute = 0;
 				}
 				else
-				{
-					if (cmds->output != 1)
-						close(cmds->output);
-					if (!ft_strcmp(">", cmds->tokens->tokens[i - 1]))
-						fd = open(file_name, O_RDWR | O_CREAT, 0644);
-					else
-						fd = open(file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
-					if (fd == -1)
-					{
-						puterror(cmds->tokens->tokens[i], strerror(errno));
-						cmds->should_execute = 0;
-					}
-					cmds->output = fd;
-				}
+					open_outfile(cmds, outfile, i);
 			}
 		}
 		cmds = cmds->next;
