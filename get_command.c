@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:07:05 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 22:16:39 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/16 13:59:31 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*get_command_path(char *command_name, char **env)
 		return (ft_strdup(command_name));
 	i = -1;
 	path = ft_getenv("PATH", env);
+	if 	(!path)
+		return (NULL);
 	split(&paths, path, ':');
 	free(path);
 	path = strjoin("/", command_name);
