@@ -6,11 +6,12 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:07:28 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/05/31 10:52:31 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:45:57 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
 int	get_nbrlen(int n)
 {
 	int				i;
@@ -55,4 +56,3 @@ char	*ft_itoa(int n)
 		*nbr = '0';
 	return (nbr);
 }
-

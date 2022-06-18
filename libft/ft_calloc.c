@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 20:29:32 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 20:31:38 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:45:30 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	*ft_calloc(size_t count, size_t size)
 	mem = malloc(count * size);
 	if (!mem)
 		return (0);
-    ft_memset(mem, 0, count * size);
+	ft_memset(mem, 0, count * size);
 	return (mem);
 }

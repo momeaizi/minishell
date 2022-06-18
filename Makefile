@@ -4,11 +4,11 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
 
 .PHONY = all clean fclean re
 
-SRCS = *.c expanding/*.c libft/*.c libft/list/*.c libft/string/*.c libft/string/split/*.c
+SRCS = *.c expanding/*.c libft/*.c libft/list/*.c libft/string/*.c libft/string/split/*.c heredoc/*.c
 
 OBJS :=$(SRCS:.c=.o)
 

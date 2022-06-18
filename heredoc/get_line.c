@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_alnum.c                                         :+:      :+:    :+:   */
+/*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 18:52:15 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/17 22:46:13 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 12:51:30 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 13:45:00 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(char c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	return (0);
-}
+#include "../minishell.h"
 
-int	ft_isnum(char c)
+char	*get_line(int fd)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+	char	*line;
+	char	*new_line;
+	char	*rd;
 
-int	ft_isalnum(char c)
-{
-	if (ft_isalpha(c) || ft_isnum(c))
-		return (1);
-	return (0);
+	write(1, "> ", 2);
+	line = ft_calloc(1, sizeof(char));
+	rd = (char *)ft_calloc(2, sizeof(char));
+	while (read(fd, rd, 1) > 0 && rd[0] != '\n')
+	{
+		new_line = strjoin(line, rd);
+		free(line);
+		line = new_line;
+	}
+	free(rd);
+	return (line);
 }

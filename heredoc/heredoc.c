@@ -6,11 +6,11 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:47:57 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 21:59:03 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:33:27 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	is_there_any_quote(char *str)
 {
@@ -43,7 +43,7 @@ void	herdoc_read(t_command *cmds, char *limit, char shld_exp, char shld_wr)
 	}
 	while (1)
 	{
-		line = readline("> ");
+		line = get_line(0);
 		new_line = strjoin(line, "\n");
 		if (!ft_strcmp(limit, line))
 			break ;
@@ -73,7 +73,7 @@ void	get_heredocs(t_command *cmds)
 				cmds->tokens->should_expand = \
 				!is_there_any_quote(cmds->tokens->tokens[i + 1]);
 				cmds->tokens->limiters = ft_realloc(cmds->tokens->limiters, \
-				remove_quotes(cmds->tokens->tokens[i + 1]));
+				remove_quotes(ft_strdup(cmds->tokens->tokens[i + 1])));
 				cmds->tokens->index = i + 1;
 			}
 		}
