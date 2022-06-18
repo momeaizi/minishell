@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:08 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/02 20:49:16 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:32:28 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*wrap_redirection_by_space(char *str)
 	count = space_counter(str);
 	if (!count)
 		return (str);
-	new_str = (char *)malloc((ft_strlen(str) + count + 1) * sizeof(char));
+	new_str = (char *)malloc((p_ft_strlen(str) + count + 1) * sizeof(char));
 	while (str[++i])
 	{
 		new_str[j] = str[i];

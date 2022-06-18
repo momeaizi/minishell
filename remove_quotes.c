@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 17:18:45 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/14 21:00:27 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:32:28 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*remove_quotes(char *str)
 			len++;
 	if (!len)
 		return (str);
-	new_str = (char *)malloc((ft_strlen(str) - len + 1) * sizeof(char));
+	new_str = (char *)malloc((p_ft_strlen(str) - len + 1) * sizeof(char));
 	if (!new_str)
 		return (str);
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:49:34 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:16:50 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:33:25 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ char	*is_empty(char *str)
 {
 	char	*new_str;
 
-	if (!ft_strcmp("\"\"", str))
+	if (!p_ft_strcmp("\"\"", str))
 	{
-		new_str = ft_strdup(" ");
+		new_str = p_ft_strdup(" ");
 		free(str);
 		return (new_str);
 	}

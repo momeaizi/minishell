@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:07:05 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/18 14:38:07 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:43:38 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	redirect(char *token)
 {
-	if (ft_strcmp("<", token))
-		if (ft_strcmp(">", token))
-			if (ft_strcmp(">>", token))
-				if (ft_strcmp("<<", token))
+	if (p_ft_strcmp("<", token))
+		if (p_ft_strcmp(">", token))
+			if (p_ft_strcmp(">>", token))
+				if (p_ft_strcmp("<<", token))
 					return (0);
 	return (1);
 }
@@ -30,9 +30,11 @@ char	*get_command_path(char *command_name, char **env)
 	int		i;
 
 	if (!access(command_name, F_OK))
-		return (ft_strdup(command_name));
+		return (p_ft_strdup(command_name));
+	else if (!p_ft_strlen(command_name))
+		return (NULL);
 	i = -1;
-	path = ft_getenv("PATH", env);
+	path = p_ft_getenv("PATH", env);
 	if (!path)
 		return (NULL);
 	split(&paths, path, ':');
@@ -71,10 +73,15 @@ void	get_cmds(t_command *cmds, char **env)
 			{
 				if (!cmds->command_name)
 				{
-					cmds->command_name = remove_quotes(expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0));
+					cmds->command_name = remove_quotes(expand_var(p_ft_strdup(cmds->tokens->tokens[i]), env, 0));
 					cmds->command_path = get_command_path(cmds->command_name, env);
+					if (!cmds->command_path)
+					{
+						free(cmds->command_name);
+						cmds->command_name = p_ft_strdup(cmds->tokens->tokens[i]);
+					}
 				}
-				cmds->command_args = ft_realloc(cmds->command_args, remove_quotes(expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0)));
+				cmds->command_args = p_ft_realloc(cmds->command_args, remove_quotes(expand_var(p_ft_strdup(cmds->tokens->tokens[i]), env, 0)));
 			}
 		}
 		cmds = cmds->next;

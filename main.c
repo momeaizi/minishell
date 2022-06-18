@@ -6,22 +6,11 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:16 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/18 15:35:33 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:44:26 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	cleaning(t_command **cmds, int ***pipes, char close_pipe)
-{
-	t_command	*tmp;
-
-	tmp = *cmds;
-	if (close_pipe)
-		close_all(ft_lstsize(*cmds), pipes);
-	clear_tokens(&tmp);
-	ft_lstclear(cmds);
-}
 
 void	exe(t_command *tmp, char **env)
 {
@@ -40,7 +29,7 @@ void	exe(t_command *tmp, char **env)
 				close(tmp->output);
 			if (tmp->should_execute)
 				if (execve(tmp->command_path, tmp->command_args, env) == -1)
-					exit (1/*puterror(tmp->command_name, strerror(errno))*/);
+					exit (puterror(tmp->command_name, strerror(errno)));
 			exit (2);
 		}
 		wait(NULL);
@@ -64,8 +53,9 @@ int main(int ac, char **av, char **env)
 	{
 		head  = NULL;
 		line = readline("Bash1.0>-$");
+		add_history(line);
 		printf("\033[0;37m");
-		if (check_quotes(line) && ft_strlen(line))
+		if (check_quotes(line) && p_ft_strlen(line))
 		{
 			head = tokenizer(line);
 			if (check_redirect(head))

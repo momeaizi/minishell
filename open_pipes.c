@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 14:33:47 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/13 23:18:59 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:37:19 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	open_pipes(t_command *cmds, int ***pipes)
 	int	size;
 
 	i = 0;
-	size = ft_lstsize(cmds);
+	size = p_ft_lstsize(cmds);
 	if (size < 2)
 		return ;
 	*pipes = (int **)malloc((size - 1) * sizeof(int *));

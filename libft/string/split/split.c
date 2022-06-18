@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:01 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/04 18:55:27 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:44:00 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	split(char ***tokens, char *s, char c)
 	j = 0;
 	i = -1;
 	size = tokens_length(s, c);
-	*tokens = (char **)ft_calloc(count_tokens(s, c), sizeof(char *));
+	*tokens = (char **)p_ft_calloc(count_tokens(s, c), sizeof(char *));
 	if (!*tokens || !s)
 		return ;
 	while (s[++i])
@@ -31,7 +31,7 @@ void	split(char ***tokens, char *s, char c)
 			(*tokens)[j] = (char *)malloc(size[j] * sizeof(char));
 			if (!(*tokens)[j])
 				break ;
-			ft_strlcpy((*tokens)[j], ((char *)s + i), size[j]);
+			p_ft_strlcpy((*tokens)[j], ((char *)s + i), size[j]);
 			j++;
 		}
 	}

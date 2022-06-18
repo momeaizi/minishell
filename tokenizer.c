@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:36:19 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/06 11:52:13 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:37:09 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_command	*tokenizer(char *str)
 		node = create_node(&cmds, lines[i]);
 		if (!node)
 		{
-			ft_lstclear(&cmds);
+			p_ft_lstclear(&cmds);
 			return (NULL);
 		}
 		node->tokens->line = wrap_redirection_by_space(node->tokens->line);

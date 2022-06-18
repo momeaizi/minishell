@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:35:42 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/18 15:10:06 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 18:46:32 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 18:46:38 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_lstclear(t_command **head)
+void	p_ft_lstclear(t_command **head)
 {
 	int			i;
 	t_command	*current;

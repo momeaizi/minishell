@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/29 19:50:50 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:52:32 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 18:46:07 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 18:46:10 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**ft_realloc(char **ptr, char *new)
+char	**p_ft_realloc(char **ptr, char *new)
 {
 	int		i;
 	int		size;

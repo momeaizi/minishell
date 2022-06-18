@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:47:57 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/18 14:33:27 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:37:42 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	herdoc_read(t_command *cmds, char *limit, char shld_exp, char shld_wr)
 	{
 		line = get_line(0);
 		new_line = strjoin(line, "\n");
-		if (!ft_strcmp(limit, line))
+		if (!p_ft_strcmp(limit, line))
 			break ;
 		if (shld_exp)
 			new_line = expand_var(new_line, cmds->env, 1);
 		if (shld_wr)
-			write(pipes[1], new_line, ft_strlen(new_line));
+			write(pipes[1], new_line, p_ft_strlen(new_line));
 		free_lines(line, new_line);
 	}
 	if (shld_wr)
@@ -68,12 +68,12 @@ void	get_heredocs(t_command *cmds)
 		i = -1;
 		while (cmds->tokens->tokens[++i])
 		{
-			if (!ft_strcmp("<<", cmds->tokens->tokens[i]))
+			if (!p_ft_strcmp("<<", cmds->tokens->tokens[i]))
 			{
 				cmds->tokens->should_expand = \
 				!is_there_any_quote(cmds->tokens->tokens[i + 1]);
-				cmds->tokens->limiters = ft_realloc(cmds->tokens->limiters, \
-				remove_quotes(ft_strdup(cmds->tokens->tokens[i + 1])));
+				cmds->tokens->limiters = p_ft_realloc(cmds->tokens->limiters, \
+				remove_quotes(p_ft_strdup(cmds->tokens->tokens[i + 1])));
 				cmds->tokens->index = i + 1;
 			}
 		}

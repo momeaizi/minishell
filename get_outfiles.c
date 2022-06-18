@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 21:33:45 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/15 13:16:45 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:33:25 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	open_outfile(t_command *cmd, char *outfile, int i)
 {
 	int	fd;
 
-	if (!ft_strcmp(">", cmd->tokens->tokens[i - 1]))
+	if (!p_ft_strcmp(">", cmd->tokens->tokens[i - 1]))
 		fd = open(outfile, O_RDWR | O_CREAT, 0644);
 	else
 		fd = open(outfile, O_RDWR | O_CREAT | O_APPEND, 0644);
@@ -43,12 +43,12 @@ void	get_outfiles(t_command *cmds, char **env)
 		i = -1;
 		while (cmds->tokens->tokens[++i] && cmds->should_execute)
 		{
-			if (i && (!ft_strcmp(">", cmds->tokens->tokens[i - 1]) \
-			|| !ft_strcmp(">>", cmds->tokens->tokens[i - 1])))
+			if (i && (!p_ft_strcmp(">", cmds->tokens->tokens[i - 1]) \
+			|| !p_ft_strcmp(">>", cmds->tokens->tokens[i - 1])))
 			{
 				outfile = remove_quotes(expand_var(\
-				ft_strdup(cmds->tokens->tokens[i]), env, 0));
-				if (!ft_strlen(outfile))
+				p_ft_strdup(cmds->tokens->tokens[i]), env, 0));
+				if (!p_ft_strlen(outfile))
 				{
 					puterror(cmds->tokens->tokens[i], "ambiguous redirect");
 					cmds->should_execute = 0;

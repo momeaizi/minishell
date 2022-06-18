@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:35:47 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:52:58 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 18:46:53 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 18:46:57 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_command	*ft_lstlast(t_command *lst)
+t_command	*p_ft_lstlast(t_command *lst)
 {
 	t_command	*head;
 

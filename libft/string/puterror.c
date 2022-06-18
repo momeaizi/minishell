@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 22:17:57 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/17 22:44:58 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:32:28 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	puterror(char *name, char *error)
 {
-	write(2, name, ft_strlen(name));
+	write(2, name, p_ft_strlen(name));
 	write(2, ": ", 2);
-	write(2, error, ft_strlen(error));
+	write(2, error, p_ft_strlen(error));
 	write(2, "\n", 1);
 	return (1);
 }

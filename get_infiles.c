@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 21:49:58 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/15 13:14:07 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:33:25 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	get_infiles(t_command *cmds, char **env)
 		i = -1;
 		while (cmds->tokens->tokens[++i] && cmds->should_execute)
 		{
-			if (i && !ft_strcmp("<", cmds->tokens->tokens[i - 1]))
+			if (i && !p_ft_strcmp("<", cmds->tokens->tokens[i - 1]))
 			{
 				infile = remove_quotes(\
-				expand_var(ft_strdup(cmds->tokens->tokens[i]), env, 0));
-				if (!ft_strlen(infile))
+				expand_var(p_ft_strdup(cmds->tokens->tokens[i]), env, 0));
+				if (!p_ft_strlen(infile))
 				{
 					puterror(cmds->tokens->tokens[i], "ambiguous redirect");
 					cmds->should_execute = 0;

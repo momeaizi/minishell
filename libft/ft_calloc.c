@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 20:29:32 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/17 22:45:30 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 18:45:39 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 18:45:43 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	*p_ft_calloc(size_t count, size_t size)
 {
 	void	*mem;
 

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 15:07:28 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/17 22:45:57 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 18:45:52 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 18:45:55 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	get_nbrlen(int n)
 	return (i);
 }
 
-char	*ft_itoa(int n)
+char	*p_ft_itoa(int n)
 {
 	int				i;
 	char			*nbr;

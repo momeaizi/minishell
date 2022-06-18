@@ -6,7 +6,7 @@
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 18:52:11 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/18 15:25:37 by momeaizi         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:44:00 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ typedef struct s_command
 }	t_command;
 
 //					string
-int			ft_strlen(char *str);
-void		ft_strlcpy(char *dst, const char *src, size_t dstsize);
-int			ft_strcmp(const char *s1, const char *s2);
+int			p_ft_strlen(char *str);
+void		p_ft_strlcpy(char *dst, const char *src, size_t dstsize);
+int			p_ft_strcmp(const char *s1, const char *s2);
 int			puterror(char *name, char *error);
 char		*strjoin(char *s1, char *s2);
-char		*ft_strdup(char *s1);
+char		*p_ft_strdup(char *s1);
 char		*wrap_redirection_by_space(char *str);
 char		*get_line(int fd);
 //					split
@@ -62,23 +62,23 @@ void		replace_inside_quotes(char *str, char new, char old);
 void		replace_all_strings(char **strs, char new, char old);
 void		clear(char **paths, int j);
 //					list
-t_command	*ft_lstlast(t_command *lst);
-void		ft_lstadd_back(t_command **lst, t_command *new);
-void		ft_lstclear(t_command **head);
-int			ft_lstsize(t_command *cmds);
+t_command	*p_ft_lstlast(t_command *lst);
+void		p_ft_lstadd_back(t_command **lst, t_command *new);
+void		p_ft_lstclear(t_command **head);
+int			p_ft_lstsize(t_command *cmds);
 t_command	*create_node(t_command **head, char *line);
 //					tokenizer
 t_command	*tokenizer(char *str);
 
 void		parser(t_command *cmds, int ***pipes, char **env);
 
-char		**ft_realloc(char **ptr, char *new);
-int			ft_isalpha(char c);
-int			ft_isnum(char c);
-int			ft_isalnum(char c);
-char		*ft_itoa(int n);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-char		*ft_getenv(char *var, char **env);
+char		**p_ft_realloc(char **ptr, char *new);
+int			p_ft_isalpha(char c);
+int			p_ft_isnum(char c);
+int			p_ft_isalnum(char c);
+char		*p_ft_itoa(int n);
+int			p_ft_strncmp(const char *s1, const char *s2, size_t n);
+char		*p_ft_getenv(char *var, char **env);
 char		*expand_var(char *str, char **env, char expand_all);
 char		*remove_quotes(char *str);
 
@@ -92,7 +92,7 @@ int			redirect(char *token);
 int			check_quotes(char *str);
 int			check_redirect(t_command *commands);
 
-void		*ft_calloc(size_t count, size_t size);
+void		*p_ft_calloc(size_t count, size_t size);
 
 void		clear_tokens(t_command **head);
 void		open_pipes(t_command *cmds, int ***pipes);

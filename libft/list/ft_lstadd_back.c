@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 18:35:44 by momeaizi          #+#    #+#             */
-/*   Updated: 2022/06/01 18:52:54 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 18:46:44 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 18:46:47 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_lstadd_back(t_command **lst, t_command *new)
+void	p_ft_lstadd_back(t_command **lst, t_command *new)
 {
 	t_command	*last;
 
@@ -20,7 +20,7 @@ void	ft_lstadd_back(t_command **lst, t_command *new)
 	{
 		if (*lst)
 		{
-			last = ft_lstlast(*lst);
+			last = p_ft_lstlast(*lst);
 			last->next = new;
 		}
 		else
