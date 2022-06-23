@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 19:02:31 by momeaizi          #+#    #+#             */
-/*   Updated: 2021/11/20 14:15:42 by momeaizi         ###   ########.fr       */
+/*   Created: 2021/11/01 12:01:48 by momeaizi          #+#    #+#             */
+/*   Updated: 2021/11/20 14:45:52 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include "libft.h"
-
-void	*ft_calloc(size_t count, size_t size)
+int	ft_isascii(int c)
 {
-	void	*mem;
-
-	mem = malloc(count * size);
-	if (!mem)
-		return (0);
-	ft_bzero(mem, count * size);
-	return (mem);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }
-
-/*#include<stdio.h>
+/*#include <ctype.h>
 int	main()
 {
-	int	*arr;
-	int	i;
-
-	arr = (int *)ft_calloc(2, sizeof(int));
-	i = 0;
-	while (i < 2)
-	{
-		printf("%d\n", arr[i]);
-		i++;
-	}
+	unsigned char c = (unsigned char)353;
+	printf("%d\n", c);
+	printf("%d\n", isascii(c));
 }*/

@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 19:02:31 by momeaizi          #+#    #+#             */
-/*   Updated: 2021/11/20 14:15:42 by momeaizi         ###   ########.fr       */
+/*   Created: 2021/11/01 18:03:08 by momeaizi          #+#    #+#             */
+/*   Updated: 2021/11/20 15:17:11 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_toupper(int c)
 {
-	void	*mem;
-
-	mem = malloc(count * size);
-	if (!mem)
-		return (0);
-	ft_bzero(mem, count * size);
-	return (mem);
+	if (c >= 97 && c <= 122)
+		return (c - 32);
+	return (c);
 }
-
-/*#include<stdio.h>
-int	main()
-{
-	int	*arr;
-	int	i;
-
-	arr = (int *)ft_calloc(2, sizeof(int));
-	i = 0;
-	while (i < 2)
-	{
-		printf("%d\n", arr[i]);
-		i++;
-	}
-}*/

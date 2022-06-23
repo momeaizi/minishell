@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 19:02:31 by momeaizi          #+#    #+#             */
-/*   Updated: 2021/11/20 14:15:42 by momeaizi         ###   ########.fr       */
+/*   Created: 2021/09/25 14:44:43 by momeaizi          #+#    #+#             */
+/*   Updated: 2021/11/20 16:34:34 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	void	*mem;
+	size_t	i;
 
-	mem = malloc(count * size);
-	if (!mem)
-		return (0);
-	ft_bzero(mem, count * size);
-	return (mem);
-}
-
-/*#include<stdio.h>
-int	main()
-{
-	int	*arr;
-	int	i;
-
-	arr = (int *)ft_calloc(2, sizeof(int));
 	i = 0;
-	while (i < 2)
+	while ((s1[i] || s2[i]) && i < n)
 	{
-		printf("%d\n", arr[i]);
+		if (s1[i] != s2[i])
+			return (((unsigned char)s1[i] - s2[i]));
 		i++;
 	}
-}*/
+	return (0);
+}

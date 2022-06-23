@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 19:02:31 by momeaizi          #+#    #+#             */
-/*   Updated: 2021/11/20 14:15:42 by momeaizi         ###   ########.fr       */
+/*   Created: 2021/11/17 13:20:12 by momeaizi          #+#    #+#             */
+/*   Updated: 2021/11/20 15:10:13 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-void	*ft_calloc(size_t count, size_t size)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	void	*mem;
+	t_list	*head;
+	t_list	*lst1;
+	t_list	*new;
 
-	mem = malloc(count * size);
-	if (!mem)
-		return (0);
-	ft_bzero(mem, count * size);
-	return (mem);
-}
-
-/*#include<stdio.h>
-int	main()
-{
-	int	*arr;
-	int	i;
-
-	arr = (int *)ft_calloc(2, sizeof(int));
-	i = 0;
-	while (i < 2)
+	head = lst;
+	lst1 = NULL;
+	while (head)
 	{
-		printf("%d\n", arr[i]);
-		i++;
+		new = ft_lstnew(f(head->content));
+		if (!new)
+		{
+			ft_lstclear(&lst1, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&lst1, new);
+		head = head->next;
 	}
-}*/
+	return (lst1);
+}

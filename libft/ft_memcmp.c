@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 19:02:31 by momeaizi          #+#    #+#             */
-/*   Updated: 2021/11/20 14:15:42 by momeaizi         ###   ########.fr       */
+/*   Created: 2021/11/03 09:15:49 by momeaizi          #+#    #+#             */
+/*   Updated: 2021/11/20 15:54:01 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	void	*mem;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	mem = malloc(count * size);
-	if (!mem)
-		return (0);
-	ft_bzero(mem, count * size);
-	return (mem);
-}
-
-/*#include<stdio.h>
-int	main()
-{
-	int	*arr;
-	int	i;
-
-	arr = (int *)ft_calloc(2, sizeof(int));
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
 	i = 0;
-	while (i < 2)
+	while (i < n)
 	{
-		printf("%d\n", arr[i]);
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
 		i++;
 	}
+	return (0);
+}
+/*#include <stdio.h>
+#include <string.h>
+int	main()
+{
+	int	arr[]  = {1,2,3,4};
+	int	arr1[] = {1,2,3,9};
+	printf("%d\n", memcmp(arr, arr1, 3 * sizeof(int)));
 }*/

@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momeaizi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 19:02:31 by momeaizi          #+#    #+#             */
-/*   Updated: 2021/11/20 14:15:42 by momeaizi         ###   ########.fr       */
+/*   Created: 2021/11/02 12:41:09 by momeaizi          #+#    #+#             */
+/*   Updated: 2021/11/20 16:43:36 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+char	*ft_strrchr(const char *s, int c)
 {
-	void	*mem;
+	int		i;
+	char	*str;
 
-	mem = malloc(count * size);
-	if (!mem)
-		return (0);
-	ft_bzero(mem, count * size);
-	return (mem);
-}
-
-/*#include<stdio.h>
-int	main()
-{
-	int	*arr;
-	int	i;
-
-	arr = (int *)ft_calloc(2, sizeof(int));
+	c = (char)c;
+	str = 0;
 	i = 0;
-	while (i < 2)
+	if (c == 0)
+		str = ((char *)s + ft_strlen(s));
+	while (s[i])
 	{
-		printf("%d\n", arr[i]);
+		if (s[i] == c)
+			str = ((char *)s + i);
 		i++;
 	}
+	return (str);
+}
+/*#include <string.h>
+#include<stdio.h>
+
+int	main()
+{
+	printf("%d\n", *ft_strrchr("taha meizi", 0));
 }*/

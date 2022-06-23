@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momeaizi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: momeaizi <momeaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 15:07:28 by momeaizi          #+#    #+#             */
-/*   Updated: 2021/11/20 15:00:14 by momeaizi         ###   ########.fr       */
+/*   Created: 2022/06/18 18:45:52 by momeaizi          #+#    #+#             */
+/*   Updated: 2022/06/18 18:45:55 by momeaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdlib.h>
 
 int	get_nbrlen(int n)
@@ -31,7 +32,7 @@ int	get_nbrlen(int n)
 	return (i);
 }
 
-char	*ft_itoa(int n)
+char	*p_ft_itoa(int n)
 {
 	int				i;
 	char			*nbr;
@@ -55,10 +56,3 @@ char	*ft_itoa(int n)
 		*nbr = '0';
 	return (nbr);
 }
-
-/*#include<stdio.h>
-
-int	main()
-{
-	printf("%s\n", ft_itoa(-45));
-}*/
